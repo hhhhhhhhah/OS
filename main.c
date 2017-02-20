@@ -51,6 +51,7 @@ int main(int argc, char* argv[]){
         for(int n = 0; n < i; n++){
 			fprintf(file1, "%d\n", array1[n]);
         }
+
 		fclose(file1);
 		exit(0);
     }
@@ -78,9 +79,14 @@ int main(int argc, char* argv[]){
         for(int n = 0; n < i; n++){
 			fprintf(file2, "%d\n", array2[n]);
         }
+
 		fclose(file2);
+
 		exit(0);
     }
+
+	waitpid (childpid1, NULL, 0);
+	waitpid (childpid2, NULL, 0);
 
 	FILE* file1 = fopen (filename1, "r");
     FILE* file2 = fopen (filename2, "r");
@@ -103,13 +109,13 @@ int main(int argc, char* argv[]){
     fclose(file1);
     fclose(file2);
 
-	int sorted[m+n];
 	printf("Please enter result filename: ");
     scanf("%s",filename3);
+	FILE* file3 = fopen (filename3,"w");
+
+	int sorted[m+n];
+
     merge(array1, m, array2, n, sorted);
-
-	FILE* file3 = fopen(filename3,"w");
-
 
 	for(int x = 0; x < m + n; x++) {
 		fprintf (file3, "%d\n", sorted[x]);
@@ -135,7 +141,7 @@ void insertionSort(int arr[], int n) {
 void merge(int array1[], int m, int array2[], int n, int array3[]) {
   int i, j, k;
 
-  j = k = 0;
+  i = j = k = 0;
 
   while (i < m && j < n)
     {
