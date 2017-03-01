@@ -2,9 +2,10 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-int array[10] = {10, 8, 5, 2, 3, 6, 7, 1, 4, 9}; 
+int *array; 
 
-int threadCounter = 0;
+int threadsNumber;
+int threadsCounter = 1;
 
 typedef struct node {
 	int i;
@@ -41,10 +42,13 @@ void merge(int i, int j){
 	}
 }
 
-void *megresort(void *array){
-	NODE *p = (NODE *)array;
+void *megresort(void *nd){
+	printf("Thread created. Thread %d of %d\n", threadsCounter, threadsNumber);
+
+	NODE *p = (NODE *)nd;
 	NODE n1, n2;
 
+	int k = 0, l = 0;
 	int mid = (p->i + p->j)/2;
 	pthread_t tid1, tid2;
 	int ret;
@@ -57,34 +61,90 @@ void *megresort(void *array){
 
 	if(p->i >= p->j) return;
 
-	ret = pthread_create(&tid1, NULL, megresort, &n1);
-
-	if(ret){
-		printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
-		exit(1);
+	if(threadsCounter < threadsNumber){	
+		ret = pthread_create(&tid1, NULL, megresort, &n1);
+		k = 1;
+		if(ret){
+			printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
+			exit(1);
+		}
+		else threadsCounter++;	
 	}
-	else threadCounter++;	
-	
-	ret = pthread_create(&tid2, NULL, megresort, &n2);
-	
-	if(ret){
-		printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
-		exit(1);
+	else {
+		megresort(&n1);
 	}
-	else threadCounter++;
 
-	pthread_join(tid1, NULL);
-	pthread_join(tid2, NULL);
+	if(threadsCounter < threadsNumber){
+		ret = pthread_create(&tid2, NULL, megresort, &n2);
+		l = 1;
+		if(ret){
+			printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
+			exit(1);
+		}
+		else threadsCounter++;
+	}
+	else {
+		megresort(&n2);
+	}
+
+	if(k == 1){
+		pthread_join(tid1, NULL);
+	}
+	if(l == 1){
+		pthread_join(tid2, NULL);
+	}
 
 	merge(p->i, p->j);
 	pthread_exit(NULL);
 }
 
-int main(){
+int* randomArray(int n){
+	time_t t;
+	srand((unsigned) time(&t)); 
+	int *randArray = (int*)malloc(n * sizeof(int));
+	if(randArray){
+		int i;
+		for(i = 0; i < n; i++){
+			randArray[i] = rand() % 100;
+		}
+	}
+	return randArray;
+}
+
+int main(int argc, char * argv[]){
 	int i;
+	int n;
+
+	if(argc > 1){
+		n = atoi(argv[1]);
+	}
+	else {
+		printf("Enter number to create a random array: ");
+		scanf("%d", &n);
+	}
+	if(n <= 0){
+		printf("Wrong number. Need a number > 0.\n");
+		return 0;
+	}
+
+	if(argc > 2){
+		threadsNumber = atoi(argv[2]);
+	}
+	else {
+		printf("How many threads can be used? ");
+		scanf("%d", &n);
+	}
+
+	array = randomArray(n);
+
+	for(i = 0; i < n; i++){
+		printf("%d ", array[i]);
+	}
+	printf("\n");
+
 	NODE m;
 	m.i = 0;
-	m.j = 9;
+	m.j = n-1;
 
 	pthread_t tid;
 
@@ -95,17 +155,16 @@ int main(){
 		printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
 		exit(1);
 	}
-	else threadCounter++;
 
 	pthread_join(tid, NULL);
 
-	for(i = 0; i < 10; i++){
+	for(i = 0; i < n; i++){
 		printf("%d ", array[i]);
 	}
 
 	printf("\n");
 
-	printf("Total number of threads is %d\n", threadCounter);
+	printf("Total number of threads is %d\n", threadsCounter);
 	return 0;
 }
 
