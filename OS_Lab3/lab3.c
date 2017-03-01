@@ -43,7 +43,7 @@ void merge(int i, int j){
 }
 
 void *megresort(void *nd){
-	printf("Thread created. Thread %d of %d\n", threadsCounter, threadsNumber);
+//	printf("Thread created. Thread %d of %d\n", threadsCounter, threadsNumber);
 
 	NODE *p = (NODE *)nd;
 	NODE n1, n2;
@@ -61,27 +61,29 @@ void *megresort(void *nd){
 
 	if(p->i >= p->j) return;
 
-	if(threadsCounter < threadsNumber){	
+	if(threadsCounter < threadsNumber){			
+		threadsCounter++;
+		printf("Creating thread. Thread %d of %d\n", threadsCounter, threadsNumber);
 		ret = pthread_create(&tid1, NULL, megresort, &n1);
 		k = 1;
 		if(ret){
 			printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
 			exit(1);
 		}
-		else threadsCounter++;	
 	}
 	else {
 		megresort(&n1);
 	}
 
-	if(threadsCounter < threadsNumber){
+	if(threadsCounter < threadsNumber){	
+		threadsCounter++;
+		printf("Creating thread. Thread %d of %d\n", threadsCounter, threadsNumber);
 		ret = pthread_create(&tid2, NULL, megresort, &n2);
 		l = 1;
 		if(ret){
 			printf("%d %s -unable to create tread - ret - %d\n", __LINE__, __FUNCTION__, ret);
 			exit(1);
 		}
-		else threadsCounter++;
 	}
 	else {
 		megresort(&n2);
