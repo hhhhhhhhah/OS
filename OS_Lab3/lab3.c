@@ -43,7 +43,6 @@ void merge(int i, int j){
 }
 
 void *megresort(void *nd){
-//	printf("Thread created. Thread %d of %d\n", threadsCounter, threadsNumber);
 
 	NODE *p = (NODE *)nd;
 	NODE n1, n2;
@@ -97,7 +96,7 @@ void *megresort(void *nd){
 	}
 
 	merge(p->i, p->j);
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 }
 
 int* randomArray(int n){
@@ -134,7 +133,11 @@ int main(int argc, char * argv[]){
 	}
 	else {
 		printf("How many threads can be used? ");
-		scanf("%d", &n);
+		scanf("%d", &threadsNumber);
+	}
+	if(threadsNumber <= 0){
+		printf("Wrong number. Need a number > 0.\n");
+		return 0;
 	}
 
 	array = randomArray(n);

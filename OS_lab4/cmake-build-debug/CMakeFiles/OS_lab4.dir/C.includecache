@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayy/CLionProjects/OS/OS_lab4/main.c
+stdio.h
+-
+fcntl.h
+-
+sys/mman.h
+-
+sys/stat.h
+-
+stdlib.h
+-
+string.h
+-
+unistd.h
+-
+stdbool.h
+-
+stdint.h
+-
+sys/file.h
+-
+wait.h
+-
+dirent.h
+-
+ctype.h
+-
+
