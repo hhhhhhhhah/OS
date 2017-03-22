@@ -1,1 +1,1 @@
-/usr/bin/cc  -g   CMakeFiles/OS_Lab5.dir/main.c.o  -o OS_Lab5 
+/usr/bin/cc  -g   CMakeFiles/OS_Lab5.dir/main.c.o CMakeFiles/OS_Lab5.dir/Vector.c.o  -o OS_Lab5 

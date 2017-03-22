@@ -5,18 +5,7 @@
 int main() {
     vector *vec = malloc(sizeof(vector));
     vectorInit(vec);
-/*
-    double array[15];
-    printf("enter numbers\n");
-    for(int i = 0; i < 15; i++){
-        scanf("%lf", &array[i]);
-        vectorAdd(vec, array[i]);
-    }
 
-    for(int i = 0; i < 15; i++) {
-        printf("%lf\t",vectorGet(vec, i));
-    }
-*/
     while(1){
         int n, pos;
         double temp;

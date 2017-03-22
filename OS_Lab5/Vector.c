@@ -1,31 +1,9 @@
 //
-// Created by ayy on 3/15/17.
+// Created by ayy on 3/22/17.
 //
+#include "Vector.h"
 
-#ifndef OS_LAB5_VECTOR_H
-#define OS_LAB5_VECTOR_H
 
-#include <stdlib.h>
-#include <stdio.h>
-
-typedef struct vector {
-    int size;
-    int used;
-    double *array;
-} vector;
-
-void vectorInit(vector *);
-int vectorUsed(vector *);
-int vectorEmpty(vector *);
-static void vectorResize(vector *, int);
-void vectorAdd(vector *, double );
-void vectorSet(vector *, int, double);
-double vectorGet(vector *, int);
-void vectorDelete(vector *, int);
-void vectorFree(vector *);
-void vectorPrint(vector *);
-void printMenu();
-/*
 void vectorInit(vector *v)
 {
     v->size = 10;
@@ -105,5 +83,4 @@ void printMenu(){
     printf("7. Current number of elements\n");
     printf("8. Quit\n");
     printf(">>>>");
-}*/
-#endif //OS_LAB5_VECTOR_H
+}

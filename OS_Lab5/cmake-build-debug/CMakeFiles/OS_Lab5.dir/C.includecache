@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/ayy/CLionProjects/OS/OS_Lab5/Vector.c
+Vector.h
+/home/ayy/CLionProjects/OS/OS_Lab5/Vector.h
+
 /home/ayy/CLionProjects/OS/OS_Lab5/Vector.h
 stdlib.h
 -

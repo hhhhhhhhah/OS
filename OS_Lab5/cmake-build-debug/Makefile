@@ -123,6 +123,33 @@ OS_Lab5/fast:
 	$(MAKE) -f CMakeFiles/OS_Lab5.dir/build.make CMakeFiles/OS_Lab5.dir/build
 .PHONY : OS_Lab5/fast
 
+Vector.o: Vector.c.o
+
+.PHONY : Vector.o
+
+# target to build an object file
+Vector.c.o:
+	$(MAKE) -f CMakeFiles/OS_Lab5.dir/build.make CMakeFiles/OS_Lab5.dir/Vector.c.o
+.PHONY : Vector.c.o
+
+Vector.i: Vector.c.i
+
+.PHONY : Vector.i
+
+# target to preprocess a source file
+Vector.c.i:
+	$(MAKE) -f CMakeFiles/OS_Lab5.dir/build.make CMakeFiles/OS_Lab5.dir/Vector.c.i
+.PHONY : Vector.c.i
+
+Vector.s: Vector.c.s
+
+.PHONY : Vector.s
+
+# target to generate assembly for a file
+Vector.c.s:
+	$(MAKE) -f CMakeFiles/OS_Lab5.dir/build.make CMakeFiles/OS_Lab5.dir/Vector.c.s
+.PHONY : Vector.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... OS_Lab5"
+	@echo "... Vector.o"
+	@echo "... Vector.i"
+	@echo "... Vector.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

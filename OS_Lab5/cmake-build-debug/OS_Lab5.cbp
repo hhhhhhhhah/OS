@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ayy/CLionProjects/OS/OS_Lab5/Vector.c">
+			<Option target="OS_Lab5"/>
+		</Unit>
 		<Unit filename="/home/ayy/CLionProjects/OS/OS_Lab5/Vector.h">
 			<Option target="OS_Lab5"/>
 		</Unit>
