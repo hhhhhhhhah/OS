@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayy/CLionProjects/OS/OS_Lab5/Vector.h
+stdlib.h
+-
+stdio.h
+-
+
+/home/ayy/CLionProjects/OS/OS_Lab5/main.c
+stdio.h
+-
+Vector.h
+/home/ayy/CLionProjects/OS/OS_Lab5/Vector.h
+
