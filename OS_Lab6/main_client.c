@@ -21,8 +21,8 @@ cr_check                    -- check credit acc balance\n\
 deposit [amount]            -- put money on the account\n\
 withdraw [amount]           -- get money from the account\n\
 transfer [amount] [ID]      -- transfer money on another account\n\
-cr_deposit [amount]        -- put money on credit account\n\
-cr_withdraw [amount]       -- get money from credit account\n\
+cr_deposit [amount]         -- put money on credit account\n\
+cr_withdraw [amount]        -- get money from credit account\n\
 exit                        -- exit program\n");
 }
 
@@ -89,9 +89,7 @@ int main(int argc, char const *argv[]) {
         stat = scanf("%s", command);
 
         MessageData md;
-        printf("id%li\n",&id);
         md.clientId = id;
-        printf("md.id%li\n",&md.clientId);
 
         if (!strcmp(command, "help"))
             PrintHelp();
@@ -146,7 +144,7 @@ int main(int argc, char const *argv[]) {
                 printf("Error wrong amount");
                 continue;
             }
-            scanf("%li", &md.clientId);
+            scanf("%li", &md.transId);
             memcpy(md.command, command, strlen(command)+1);
             SendCommand(&md, senderSocket);
         }
@@ -154,10 +152,6 @@ int main(int argc, char const *argv[]) {
             memcpy(md.command, command, strlen(command) + 1);
             SendCommand(&md, senderSocket);
             active = 0;
-
-            zmq_close(senderSocket);
-            zmq_ctx_destroy(context);
-            return 0;
         }
         else
             printf("Error: invalid command!\n");

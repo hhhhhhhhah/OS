@@ -35,10 +35,8 @@ int main(int argc, char const *argv[]) {
 
     list *clients = (list*) malloc(sizeof(list));
     initList(clients);
-    //TVector* clients = Load(argv[1]);
     char answer[MAX_STRING_SIZE];
     while(1) {
-        //Save(clients, argv[1]);
         zmq_msg_t message;
         zmq_msg_init(&message);
         zmq_msg_recv(&message, serverSocket, 0);
@@ -53,18 +51,9 @@ int main(int argc, char const *argv[]) {
             else if(elem == NULL){
                 elem = newNode(md->clientId, 0);
                 push(clients, elem);
-                printf("Client %li added\n",&md->clientId);
+                printf("Client %li added\n",md->clientId);
                 memcpy(answer, "OK.\0", 4);
             }
-
-            /*if (!searchItem(clients, md->clientId)) {
-                TElem* elem = NewElem(md->clientId, 0);
-                Push(clients, elem);
-                printf("Client %.2lf added\n", md->clientId);
-                memcpy(answer, "ok\0", 3);
-            }
-            else
-                memcpy(answer, "Error: client already exist in the bank!\0", 42);*/
         }
         else {
             node* client = searchItem(clients, md->clientId);
@@ -73,19 +62,15 @@ int main(int argc, char const *argv[]) {
                     char balance[15];
                     snprintf(balance, sizeof(balance), "%d", client->amount);
                     memcpy(answer, "Balance: ", 9);
-                    printf("Client amount: %d\n",client->amount);// char = %s\n", client->amount, balance);
+                    printf("Client amount: %d\n",client->amount);
                     memcpy(answer + BALANCE_WORD_SIZE, balance, strlen(balance));
-
-                    //_itoa_s(client->amount, answer + 9, MAX_STRING_SIZE - 9, 10);
                 }
                 if (!strcmp(md->command, "cr_check")) {
                     char balance[15];
                     snprintf(balance, sizeof(balance), "%d", client->credit);
                     memcpy(answer, "Credit account balance: ", strlen("Credit account balance: "));
-                    printf("Client credit: %d\n",client->amount);// char = %s\n", client->amount, balance);
+                    printf("Client credit: %d\n",client->amount);
                     memcpy(answer + strlen("Credit account balance: "), balance, strlen(balance));
-
-                    //_itoa_s(client->amount, answer + 9, MAX_STRING_SIZE - 9, 10);
                 }
                 else if (!strcmp(md->command, "deposit")) {
                     client->amount += md->amount;
@@ -94,7 +79,6 @@ int main(int argc, char const *argv[]) {
                     memcpy(answer, "Balance: ", 9);
                     printf("Client amount: %d\n", client->amount);
                     memcpy(answer + BALANCE_WORD_SIZE, balance, strlen(balance));
-                    //_itoa_s(client->amount, answer + 9, MAX_STRING_SIZE - 9, 10);
                 }
                 else if (!strcmp(md->command, "withdraw")) {
                     if (md->amount > client->amount) {
@@ -110,17 +94,12 @@ int main(int argc, char const *argv[]) {
                         memcpy(credit_balance, "Taking cash from credit account!\n",
                                sizeof("Taking cash from credit account!\n"));
                         strcat(credit_balance, "Credit account balance: ");
-                        //memcpy(credit_balance, "Credit account balance: ", strlen("Credit account balance: "));
                         snprintf(char_balance, sizeof(balance), "%d", client->amount);
                         snprintf(char_cr_balance, sizeof(char_cr_balance), "%d", client->credit);
                         strcat(credit_balance, char_cr_balance);
                         strcat(balance, char_balance);
                         strcat(credit_balance, balance);
                         memcpy(answer, credit_balance, sizeof(credit_balance));
-                        //snprintf(credit_balance + sizeof("Credit account balance: "), sizeof(credit_balance), "%d", client->credit);
-
-                        //memcpy(answer + strlen("Taking cash from credit account!\n"), balance, strlen(balance));
-                        //memcpy(answer + strlen("Taking cash from credit account!\n") + sizeof("Credit account balance: ") + sizeof(credit_balance), credit_balance, strlen(credit_balance));
                         printf("%s", answer);
                     }
                     else {
@@ -153,7 +132,7 @@ int main(int argc, char const *argv[]) {
                 }
                 else if(!strcmp(md->command, "transfer")){
                     node* transferClient = searchItem(clients, md->transId);
-                    if(transferClient){
+                    if(transferClient != NULL){
                         if(client->amount < md->amount){
                             client->amount -= md->amount;
                             client->credit += client->amount;
@@ -198,6 +177,7 @@ int main(int argc, char const *argv[]) {
             else
                 memcpy(answer, "Error: client not found in the bank!\0", 37);
         }
+        printList(clients);
         zmq_msg_init_size(&reply, strlen(answer) + 1);
         memcpy(zmq_msg_data(&reply), answer, strlen(answer) + 1);
 
