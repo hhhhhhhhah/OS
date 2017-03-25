@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ayy/CLionProjects/OS/OS_Lab6/List.c
+stdio.h
+-
+stdlib.h
+-
+List.h
+/home/ayy/CLionProjects/OS/OS_Lab6/List.h
+
+/home/ayy/CLionProjects/OS/OS_Lab6/List.h
+
+/home/ayy/CLionProjects/OS/OS_Lab6/main_client.c
+string.h
+-
+stdio.h
+-
+zmq.h
+-
+stdlib.h
+-
+math.h
+-
+
+/home/ayy/CLionProjects/OS/OS_Lab6/main_server.c
+string.h
+-
+stdio.h
+-
+zmq.h
+-
+stdlib.h
+-
+string.h
+-
+List.h
+/home/ayy/CLionProjects/OS/OS_Lab6/List.h
+
