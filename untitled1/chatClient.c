@@ -21,9 +21,8 @@ void * receiveMessage(void * socket) {
         if (ret < 0) {
             printf("Error receiving data!\n");
         } else {
-            printf("server: ");
             fputs(buffer, stdout);
-            //printf("\n");
+            memset(buffer, '\0', BUF_SIZE);
         }
     }
 }
@@ -73,6 +72,7 @@ int main(int argc, char *argv[]){
         if (ret < 0) {
             printf("Error sending data!\n\t-%s", buffer);
         }
+        memset(buffer, '\0', BUF_SIZE);
     }
 
     close(sockfd);

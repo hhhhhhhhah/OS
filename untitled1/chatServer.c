@@ -134,6 +134,7 @@ void *handle_client(void *arg){
     sprintf(buff_out, "<<JOIN, HELLO %s\r\n", cli->name);
     send_message_all(buff_out);
 
+    memset(buff_out, '\0', 1024);
     /* Receive input from client */
     while((rlen = read(cli->connfd, buff_in, sizeof(buff_in)-1)) > 0){
         buff_in[rlen] = '\0';
@@ -203,7 +204,8 @@ void *handle_client(void *arg){
             /* Send message */
             sprintf(buff_out, "[%s] %s\r\n", cli->name, buff_in);
             send_message(buff_out, cli->uid);
-            
+            memset(buff_in, '\0', 1024);
+            memset(buff_out, '\0', 1024);
         }
     }
 
