@@ -16,7 +16,7 @@ void * receiveMessage(void * socket) {
     char buffer[BUF_SIZE];
     sockfd = (int) socket;
     memset(buffer, 0, BUF_SIZE);
-    for (;;) {
+    while (1) {
         ret = recvfrom(sockfd, buffer, BUF_SIZE, 0, NULL, NULL);
         if (ret < 0) {
             printf("Error receiving data!\n");
@@ -77,6 +77,4 @@ int main(int argc, char *argv[]){
 
     close(sockfd);
     pthread_exit(NULL);
-
-    return 0;
 }

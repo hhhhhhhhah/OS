@@ -152,8 +152,6 @@ void *handle_client(void *arg){
             command = strtok(buff_in," ");
             if(!strcmp(command, "\\QUIT")){
                 break;
-            }else if(!strcmp(command, "\\PING")){
-                send_message_self("<<PONG\r\n", cli->connfd);
             }else if(!strcmp(command, "\\NAME")){
                 param = strtok(NULL, " ");
                 if(param){
@@ -191,7 +189,6 @@ void *handle_client(void *arg){
                 send_active_clients(cli->connfd);
             }else if(!strcmp(command, "\\HELP")){
                 strcat(buff_out, "\\QUIT     Quit chatroom\r\n");
-                strcat(buff_out, "\\PING     Server test\r\n");
                 strcat(buff_out, "\\NAME     <name> Change nickname\r\n");
                 strcat(buff_out, "\\PRIVATE  <reference> <message> Send private message\r\n");
                 strcat(buff_out, "\\ACTIVE   Show active clients\r\n");
